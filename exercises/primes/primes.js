@@ -95,8 +95,11 @@ function printNPrimes(number, selector) {
 function displayWarnings(urlParams, selector) {
     let missingParams = [];
 
-    if (urlParams.get('name') == null) { missingParams.push('name'); }
-    if (urlParams.get('number') == null && urlParams.get('n') == null) { missingParams.push('number'); }
+    let name = urlParams.get('name');
+    let number = urlParams.get('number') ?? urlParams.get('n');
+
+    if (name == null) { missingParams.push('name'); }
+    if (number == null) { missingParams.push('number'); }
 
     if (missingParams.length > 0) {
         let alert = document.createElement("p");
@@ -105,12 +108,20 @@ function displayWarnings(urlParams, selector) {
 
         document.querySelector(selector).append(alert);
     }
+
+    if (isNaN(number)) {
+        let alert = document.createElement("p");
+        alert.className = 'alert alert-danger mb-4';
+        alert.innerHTML = `"Number" must be an integer`
+
+        document.querySelector(selector).append(alert);
+    }
 }
 
 window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     let name = urlParams.get('name') ?? 'student';
-    let number = urlParams.get('number') ?? urlParams.get('n') ?? 330;
+    let number = isNaN(urlParams.get('number')) ? 330 : urlParams.get('number');
 
     this.displayWarnings(urlParams, "#warnings");
     greet(name, "#greeting");
