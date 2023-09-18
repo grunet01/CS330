@@ -47,7 +47,6 @@ pathspec==0.10.1
 platformdirs==2.5.2
 playwright==1.25.2
 pluggy==1.0.0
-psycopg2-binary==2.9.3
 py==1.11.0
 pycodestyle==2.9.1
 pyee==8.1.0
