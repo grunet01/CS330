@@ -49,10 +49,9 @@ function addRow(rowData, parent) {
  * Remove a table row corresponding to the selected checkbox
  * 
  *  @param {Node} caller DOM node calling removeRow
- * https://stackoverflow.com/questions/26512386/remove-current-row-tr-when-checkbox-is-checked
  */
 async function removeRow(caller) {
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000)); // sleep for 1 second
     caller.closest("tbody").removeChild(caller.closest("tr"));
 }
 
