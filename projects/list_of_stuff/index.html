@@ -1,14 +1,76 @@
 <html>
 
 <head>
-    <title>List of stuff</title>
+    <title>Album Listening List</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="bg-dark d-flex justify-content-center">
+    <div class="w-75 my-4">
+        <div class="container">
+            <h1 class="text-white text-center pt-4">Album Listening List</h1>
+            <div class="container pt-2">
+                <form id="album_details" class="needs-validation" novalidate="">                    
+                    <div class="d-flex justify-content-between">
+                        <div class="col-4 px-2">
+                            <label for="name" class="form-label">Album Name</label>
+                            <input type="text" class="form-control" id="name" required="">
+                            <div class="invalid-feedback">
+                                Album name is required
+                            </div>
+                          </div>
+                        <div class="col-3 px-2">
+                            <label for="artist" class="form-label">Artist</label>
+                            <input type="text" class="form-control" id="artist" required="">
+                            <div class="invalid-feedback">
+                                Artist is required
+                            </div>
+                        </div>
+                        <div class="col-3 px-2">
+                            <label for="genre" class="form-label">Genre</label>
+                            <input type="text" class="form-control" id="genre" required="">
+                            <div class="invalid-feedback">
+                                Genre is required
+                            </div>
+                        </div>
+                        <div class="col-2 px-2">
+                            <label for="priority" class="form-label">Priority</label>
+                            <select id="priority" class="form-select" required="">
+                                <option selected disabled value="">Choose...</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Priority is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3 me-2">
+                        <button type="submit" id="addAlbumBtn" class="btn btn-warning px-5">Add Album</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="my-5">
+            <div class="rounded-8">
+                <table id="albumList" class="table table-light table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-1 text-center px-0">
+                                <button type="button" class="btn btn-secondary btn-sm btn-block" onclick="removeAll()">Clear All</button>
+                            </th>
+                            <th class="col-4">Album Name</th>
+                            <th class="col-2">Artist</th>
+                            <th class="col-2">Genre</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
