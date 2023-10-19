@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <title>F1 Driver Dashboard</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    
+      
+
+</head>
+
+<body class="bg-secondary">
+    <div class="w-100">
+        <div class="bg-dark position-absolute top-0 w-100 d-flex justify-content-center" style="z-index: -1;">
+            <img src="Images/f1-logo.png" style="height:84px; width:auto;">
+        </div>
+        <div class="mx-3 mt-2 mb-4 row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="Driver" class="col-form-label">Driver:</label>
+            </div>
+            <div class="col-auto">
+                <select id="Driver" class="form-select" required="">
+                    <option selected disabled value="">Choose...</option>
+                </select>
+            </div>
+        </div>
+        <div id="driverPanel" class="w-100 row mt-4" hidden>
+            <div class="col-auto m-4 me-2">
+                <img id="driverImage">
+            </div>
+            <div class="driver-data col my-4" style="height:400px">
+                <div class="d-flex p-4">
+                    <img id="driverFlag" style="height:56px; width:auto;">
+                    <h1 class="f1-text text-center text-light ms-3" id="driverName"></h1>
+                </div>
+                <div id="driverInfo" class="px-4"></div>
+                <div id="driverStandings" class="w-100 mb-4 row position-absolute bottom-0">
+                    <div class="col">
+                        <h3 class="f1-text text-light text-center">Points</h3>
+                        <h4 id="driverPoints" class="f1-text text-light text-center"></h4>
+                        <div class="ms-5" style="position: relative; height:100px; width:auto">
+                            <canvas id="driverPointsHistory" class="mt-4 mx-auto"></canvas>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h3 class="f1-text text-light text-center">Current Position</h3>
+                        <h4 id="driverPosition" class="f1-text text-light text-center mb-3"></h4>
+                        <h3 class="f1-text text-light text-center mt-4">Season Wins</h3>
+                        <h4 id="driverWins" class="f1-text text-light text-center"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id = "driver-car"></div>
+    </div>
+
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js"></script>
+    <script type="module" src="js/controller.js"></script>
+    <script type="module" src="js/query.js"></script>
+    <script type="module" src="js/display.js"></script>
+</body>
+
+</html>

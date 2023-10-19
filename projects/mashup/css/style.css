@@ -1,0 +1,41 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #fff;
+    background-image: url("../Images/redbull-background.jpeg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: luminosity;
+}
+
+label {
+    color: white;
+}
+
+.driver-data {
+    background-color: rgba(33, 37, 41, 0.975);
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+#driverImage {
+    clip: rect(0px,300px,350px,0px);
+    width: 280px;
+    max-height: 425px;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: f1;
+    src: url(Formula1-Regular.ttf);
+}
+
+.f1-text {
+    font-family: f1;
+}
