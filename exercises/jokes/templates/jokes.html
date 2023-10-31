@@ -1,4 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- TODO: Add jokes here -->
+
+    {% for joke in jokes %}
+        <p>{{joke}}</p>
+    {% endfor %}
+
 {% endblock %}
