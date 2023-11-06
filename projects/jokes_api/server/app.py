@@ -27,10 +27,14 @@ def send_jokes():
             category=category)
 
     except pyjokes.pyjokes.CategoryNotFoundError:
+
+        if (id is not None):
+            abort(404)
+
         return jsonify(["No kidding!"])
 
 
-    if (id != None):
+    if (id is not None):
 
         if (id >= len(allJokes)):
             abort(404)
