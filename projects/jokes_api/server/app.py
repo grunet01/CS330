@@ -35,7 +35,7 @@ def send_jokes():
         if (id >= len(allJokes)):
             abort(404)
 
-        return jsonify(allJokes[id])
+        return jsonify([allJokes[id]])
     
 
     if (number >= len(allJokes)):
