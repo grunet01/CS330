@@ -28,18 +28,21 @@ async function getJokes() {
 
     }
 
+    setIdErrorDisplay(false);
 
     var response = await fetch(APILocation + URLparams)
         .then(response => response.json())
-        .catch(error => displayIdError());
+        .catch(error => setIdErrorDisplay(true));
 
+    
     
     var jokesDiv = document.querySelector('#jokes');
     jokesDiv.textContent = '';
-    
+
     for (var joke of response) {
 
         var jokeNode = document.createElement('li');
+        jokeNode.className = "mb-2"
         jokeNode.textContent = joke;
 
         jokesDiv.appendChild(jokeNode);
@@ -49,9 +52,10 @@ async function getJokes() {
 }
 
 
-function displayIdError() {
+function setIdErrorDisplay(bool) {
 
-    console.log("We fucked up");
+    var errorDisplay = document.querySelector('#idErrorDisplay');
+    errorDisplay.hidden = !bool;
 
 }
 
