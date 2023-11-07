@@ -1,6 +1,8 @@
 'use strict';
 
 const APILocation = 'https://jokes-api-7apx.onrender.com/api/v1/jokes?';
+// Note: API is hosted on free plan and takes extra time to spin up on the
+// first request. Subsequent requests are faster
 
 async function getJokes() {
 
