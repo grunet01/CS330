@@ -1,1 +1,36 @@
 {% extends "base.html" %}
+
+{% block content %}
+
+{% if data is defined %}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Continent</th>
+            <th scope="col">Region</th>
+            <th scope="col">Area</th>
+            <th scope="col">Population</th>
+            <th scope="col">Government</th>
+            <th scope="col">Head</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for country in data %}
+        <tr>
+            <td>{{ country[1] }}</td>
+            <td>{{ country[2] }}</td>
+            <td>{{ country[3] }}</td>
+            <td>{{ country[4] }}</td>
+            <td>{{ country[6] }}</td>
+            <td>{{ country[11] }}</td>
+            <td>{{ country[12] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

@@ -1,14 +1,19 @@
 <html>
   <head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+
   </head>
   <body>
     <div>
-      <div>
-        <div><a href="/country">Country info</a></div>
-        <div><a href="/region">Region info</a></div>
-        <div><a href="/continent">Continent info</a></div>
+      <div class="d-flex justify-content-around bg-secondary p-4 text-light">
+        <div><a class="btn btn-warning" href="/country">Country info</a></div>
+        <div><a class="btn btn-warning" href="/region">Region info</a></div>
+        <div><a class="btn btn-warning" href="/continent">Continent info</a></div>
       </div>
     </div>
-    {% block content %} {% endblock %}
+    <div class="m-4">
+      {% block content %} {% endblock %}
+    </div>
   </body>
 </html>
