@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Fresh Goods</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+
+<body class="bg-body d-flex justify-content-center" data-bs-theme="dark">
+    <div class="bg-body-secondary w-75 my-5" style="border-radius: 1.25rem"> 
+        <div class="container">
+            <h1 class="text-white text-center pt-4">Farm Fresh Goods</h1>
+            <div class="d-flex justify-content-end pe-4">
+                <div class="w-25">
+                    <button class="btn btn-dark btn-lg w-100" type="button" data-bs-toggle="collapse" data-bs-target="#cart" aria-expanded="false" aria-controls="collapseExample">
+                        Shopping Cart <i class="bi bi-cart"></i>
+                    </button>
+                    <div class="collapse position-absolute z-3" id="cart">
+                        <div class="list-group" id="cart-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container px-3 my-3">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for product in products %}
+                <div class="col">
+                    <div class="card bg-secondary-subtle text-light pb-3">
+                        <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+                        <img src="{{ url_for('static', filename=product[2]) }}"
+                            class="card-img-top" alt="Product Image" />
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h5 class="card-title">{{ product[1] }}</h5>
+                            </div>
+                            <div>
+                                {{ product[3] }}
+                            </div>
+                            <hr class="d-none d-md-block my-3 w-50">
+                            <div class="font-weight-bold">
+                                <div class="d-flex justify-content-between">
+                                    <span>Amount Available</span><span>{{ product[4] }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Price</span><span>{{ product[5] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end me-2">
+                            {% if product[4] > 0 %}
+                                <button class="btn btn-success" id='btn-{{ product[0] }}' onclick='addItem("{{ product[0] }}")'>
+                                    Add to cart
+                                </button>
+                            {% else %}
+                                <button class="btn btn-muted" id='btn-{{ product[0] }}' disabled>
+                                    Sold Out
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let allProducts = {};
+
+        JSON.parse('{{ products | tojson }}').forEach(p => {
+
+            let product = {
+                name: p[1],
+                image: p[2],
+                description: p[3],
+                available: p[4],
+                price: p[5]
+            }
+
+            allProducts[p[0]] = product;
+        });
+
+
+        updateCart()
+
+
+        function updateCart() {
+
+            let currentCart = JSON.parse(localStorage.getItem('shoppingCart')) ?? [];
+            let cartList = document.querySelector('#cart-list');
+
+            cartList.innerHTML = '';
+
+            for (id of currentCart) {
+
+                let product = allProducts[id];
+
+                if (product != null) {
+
+                    let itemElement = document.createElement('li');
+                    itemElement.className = 'list-group-item list-group-item-action d-flex p-3 container';
+                    itemElement.innerHTML = `
+                        <div class="w-100 row justify-content-between">
+                            <div class="col-auto">${product.name}</div>
+                            <div class="col-auto">${product.price}</div>
+                        </div>
+                        <div class="d-flex justify-content-end ms-3">
+                            <div>
+                                <button 
+                                    class="btn btn-sm btn-danger d-flex justify-content-center align-items-center"
+                                    onclick="removeItem('${id}')">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>`
+
+                    cartList.appendChild(itemElement)
+
+                } else {
+                    removeItem(id);
+                    break;
+                }
+                    
+            }
+        }
+
+
+        function addItem(item_id) {
+            let current = JSON.parse(localStorage.getItem('shoppingCart')) ?? [];
+            current.push(item_id);
+            localStorage.setItem('shoppingCart', JSON.stringify(current));
+
+            updateCart();
+        }
+
+
+        function removeItem(item_id) {
+            let current = JSON.parse(localStorage.getItem('shoppingCart')) ?? [];
+
+            let index = current.indexOf(item_id);
+            if (index > -1) {
+                current.splice(index, 1);
+            }
+
+            localStorage.setItem('shoppingCart', JSON.stringify(current));
+
+            updateCart();
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
