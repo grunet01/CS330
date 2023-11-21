@@ -25,32 +25,6 @@ def initialize_database():
 
 
 
-def add_test_data():
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(current_directory, 'product.db')
-
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-
-    test_data = [
-        (1, 'Product 1', 'image1.jpg', 'Description 1', 10, 29.99),
-        (2, 'Product 2', 'image2.jpg', 'Description 2', 5, 39.99),
-        (3, 'Product 3', 'image3.jpg', 'Description 3', 20, 19.99),
-        (4, 'Product 1', 'image1.jpg', 'Description 1', 10, 29.99),
-        (5, 'Product 2', 'image2.jpg', 'Description 2', 5, 39.99),
-        (6, 'Product 3', 'image3.jpg', 'Description 3', 20, 19.99),
-    ]
-
-    cursor.executemany('''
-        INSERT INTO product (id, name, image, description, availability, price) 
-        VALUES (?, ?, ?, ?, ?, ?)
-    ''', test_data)
-
-    conn.commit()
-    conn.close()
-
-
-
 def get_all_products():
 
     current_directory = os.path.dirname(os.path.abspath(__file__))
