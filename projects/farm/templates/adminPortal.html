@@ -37,25 +37,25 @@
                                         <div class="modal-body">    
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Name</label>
-                                                <input name="name" type="text" class="form-control" id="name">
+                                                <input name="name" type="text" class="form-control" id="name" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="description" class="form-label">Description</label>
-                                                <input name="description" type="text" class="form-control" id="description">
+                                                <input name="description" type="text" class="form-control" id="description" required>
                                             </div>
                                             <div class="d-flex justify-content-between">
                                                 <div class="mb-3 pe-4">
                                                     <label for="availability" class="form-label">Available Amount</label>
-                                                    <input name="availability" type="text" class="form-control" id="availability">
+                                                    <input name="availability" type="number" class="form-control" id="availability" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="price" class="form-label">Price</label>
-                                                    <input name="price" type="text" class="form-control" id="price">
+                                                    <input name="price" type="number" class="form-control" id="price" required>
                                                 </div>
                                             </div>
                                             <div>
                                                 <label for="image" class="form-label">Product Image</label>
-                                                <input name="image" class="form-control form-control-lg" id="image" type="file">    
+                                                <input name="image" class="form-control form-control-lg" id="image" type="file" required>    
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -108,20 +108,20 @@
                                     <div class="modal-body">    
                                         <div class="mb-3">
                                             <label for="name{{ product[0] }}" class="form-label">Name</label>
-                                            <input name="name" type="text" class="form-control" id="name{{ product[0] }}" value="{{ product[1] }}">
+                                            <input name="name" type="text" class="form-control" id="name{{ product[0] }}" value="{{ product[1] }}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="description{{ product[0] }}" class="form-label">Description</label>
-                                            <input name="description" type="text" class="form-control" id="description{{ product[0] }}" value="{{ product[3] }}">
+                                            <input name="description" type="text" class="form-control" id="description{{ product[0] }}" value="{{ product[3] }}" required>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             <div class="mb-3 pe-4">
                                                 <label for="availability{{ product[0] }}" class="form-label">Available Amount</label>
-                                                <input name="availability" type="text" class="form-control" id="availability{{ product[0] }}" value="{{ product[4] }}">
+                                                <input name="availability" type="number" class="form-control" id="availability{{ product[0] }}" value="{{ product[4] }}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="price{{ product[0] }}" class="form-label">Price</label>
-                                                <input name="price" type="text" class="form-control" id="price{{ product[0] }}" value="{{ product[5] }}">
+                                                <input name="price" type="number" class="form-control" id="price{{ product[0] }}" value="{{ product[5] }}" required>
                                             </div>
                                         </div>
                                     </div>
