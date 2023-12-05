@@ -5,15 +5,10 @@ from controller import *
 
 
 initialize_database()
-#add_test_data()
 
 
-
-UPLOAD_FOLDER = '/images'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
