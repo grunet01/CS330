@@ -7,7 +7,6 @@ var tables = null;
 
 initialize()
 
-
 function initialize() {
   import(requestScriptPath)
     .then(module => {
