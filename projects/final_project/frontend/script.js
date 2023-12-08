@@ -9,7 +9,6 @@ initialize()
 
 
 function initialize() {
-  // Initialize list of all boards for current user
   import(requestScriptPath)
     .then(module => {
       const apiRequests = module.default;
@@ -17,10 +16,18 @@ function initialize() {
 
       apiRequests.getBoardsByEmail(userEmail)
         .then(allBoards => {
-          boards = allBoards;
 
           let menu = document.querySelector('#selectBoard')
           menu.innerHTML = ""
+
+          if (allBoards.error) { 
+            allBoards = [];
+            menu.hidden = true;
+          } else {
+            menu.hidden = false;
+          }
+
+          boards = allBoards;
 
           const lastBoardId = localStorage.getItem('currentBoard');
           var useLastBoard = false;
@@ -38,7 +45,9 @@ function initialize() {
               menu.append(opt);
           });
 
-          setCurrentBoard(useLastBoard ? lastBoardId : allBoards[0].id);
+          if (allBoards.length > 0) {
+            setCurrentBoard(useLastBoard ? lastBoardId : allBoards[0].id);
+          }
 
         })
         .catch(error => {
@@ -94,15 +103,13 @@ function addBoardWithCurrentEmail(name) {
 
       const apiRequests = module.default;
 
-      if (selectedBoard != null) {
-        apiRequests.upsertBoard(name)
-          .then(_ => {
-            initialize()
-          })
-          .catch(error => {
-            console.error('Error adding board:', error);
-          });
-      }
+      apiRequests.upsertBoard(name)
+        .then(_ => {
+          initialize()
+        })
+        .catch(error => {
+          console.error('Error adding board:', error);
+        });
 
     })
     .catch(error => {

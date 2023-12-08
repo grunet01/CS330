@@ -12,17 +12,46 @@ def insert_test_data():
     Session = sessionmaker(bind=engine)
     session = Session()
 
+    print("Adding default data...")
+
     # Creating a single board
-    board_main = Board(name='Main Board', emails=["grunet01@luther.edu", "kellca04@luther.edu"])
+    board_main = Board(name='Main Board (Global)', emails=[])
 
     # Tables for 'Main Board'
-    table_todo = Table(name='To-Do', board=board_main, order=[])
+    site_features = Table(name='Site Features', board=board_main, order=[])
+    table_features = Table(name='Table Features', board=board_main, order=[])
+    upcoming_features = Table(name='Upcoming Features', board=board_main, order=[])
 
     # Adding data to the session
     session.add_all([
-        board_main, table_todo
+        board_main, site_features, table_features, upcoming_features
     ])
+
     session.commit()
+
+    session.refresh(site_features)
+    upsert_entry(site_features.id, "Site Global Live Chat")
+    upsert_entry(site_features.id, "Create New Private Boards")
+    upsert_entry(site_features.id, "Add Other Users By Email Address to Private Boards")
+    upsert_entry(site_features.id, "Google Authentication")
+    upsert_entry(site_features.id, "Access to Private Boards Associated with Your Account")
+
+    session.refresh(table_features)
+    upsert_entry(table_features.id, "Add/Remove Tables")
+    upsert_entry(table_features.id, "Rename Tables (double click on title)")
+    upsert_entry(table_features.id, "Rename Tasks (double click)")
+    upsert_entry(table_features.id, "Drag Tasks Between Tables")
+    upsert_entry(table_features.id, "Add And Remove Tasks")
+
+    session.refresh(upcoming_features)
+    upsert_entry(upcoming_features.id, "Delete Boards")
+    upsert_entry(upcoming_features.id, "Global And Board-Specific Live Chats")
+
+
+    session.commit()
+    session.close()
+
+    view_data()
 
 
 def view_data():
@@ -40,6 +69,7 @@ def view_data():
             for entry in table.entries:
                 print(f"    Entry ID: {entry.id}, Text: {entry.text}")
     print("\n")
+    session.close()
 
 
 def clear_database():
@@ -61,10 +91,23 @@ def get_boards_by_email(email):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    boards = session.query(Board).filter(Board.emails.contains([email])).all()
+    user_boards = session.query(Board).filter(Board.emails.contains([email])).all()
+
+    global_boards = session.query(Board).filter(Board.name.icontains("(Global)")).all()
+    global_board_ids = [b.id for b in global_boards]
+
+    all_boards = []
+
+    for board in user_boards:
+        if (board.id not in global_board_ids):
+            all_boards.append(board)
+
+    for board in global_boards:
+        all_boards.append(board)
+
     session.close()
 
-    return boards
+    return all_boards
 
 
 def get_tables(board_id):
